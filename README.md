@@ -2,6 +2,8 @@
 
 **专业PPT设计制作AI技能** — 融合设计原理与代码生成，让大模型真正帮你做出专业的PPT。
 
+> 📌 本技能脱胎于 [MiniMax pptx-generator](https://github.com/MiniMax-AI/skills/tree/main/skills/pptx-generator)，经由大量设计文献的理论注入与实战优化，形成了一套完整的方法论。
+
 ---
 
 ## 它能做什么
