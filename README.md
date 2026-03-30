@@ -100,7 +100,7 @@ ppt-master/
 
 ## 快速开始
 
-放到AI IDE 的 /.skill/ 文件夹下，例如trae，cuser，openclaw也可以使用， 就可以调用本技能，描述你的PPT需求即可。技能会自动引导你完成需求分析，然后生成代码。
+放到AI IDE 的 /.skill/ 文件夹下，例如Trae， ‌Cursor，openclaw也可以使用， 就可以调用本技能，描述你的PPT需求即可。技能会自动引导你完成需求分析，然后生成代码。
 
 ---
 
