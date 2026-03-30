@@ -1,85 +1,32 @@
 # ppt-master
 
-专业PPT设计制作技能，基于PptxGenJS，融合设计原理与实战方法论。
+**专业PPT设计制作AI技能** — 融合设计原理与代码生成，让大模型真正帮你做出专业的PPT。
 
-## 起源
+---
 
-本技能脱胎于 MiniMax 提供的 `pptx-generator`，经由大量设计书籍（如《通用设计法则》《写给大家看的设计书》）的理论注入与实战优化，形成了一套完整的PPT制作方法论。
+## 它能做什么
 
-## 核心特性
+当你对大模型说"帮我做个PPT"，传统的做法是大模型生成一堆文字内容，然后你自己去排版。
 
-- **CRAP设计原则**：Contrast / Repetition / Alignment / Proximity
-- **三维体系**：难忘感 · 设计感 · 仪式感
-- **Q1-Q9决策框架**：9个关键设计决策引导
-- **认知科学支撑**：10+条通用设计原则的直接应用
-- **场景化方案**：学术汇报 / 商业路演 / 培训课件 / 工作汇报
+**ppt-master 不一样**：它会先问你一堆问题搞清需求，然后直接生成可编译的代码，输出完整的 `.pptx` 文件。整个过程有设计原理支撑，不是"内容+排版"割裂的两步走。
 
-## 效果展示
+---
 
-使用本技能生成的《LLM优化算法演进史》第一章课件：
+## 核心能力
 
-| 封面 | 目录 | 内容页 | 结尾页 |
-|:---:|:---:|:---:|:---:|
-| ![封面](效果展示/1.png) | ![目录](效果展示/2.png) | ![内容](效果展示/3.png) | ![结尾](效果展示/4.png) |
+| 能力 | 说明 |
+|------|------|
+| **需求分析** | 先搞清谁看、在哪看、几分钟、什么风格 — 需求不清不做 |
+| **设计决策** | Q1-Q9 清单 + CRAP四原则自问 — 不是拍脑袋 |
+| **代码生成** | PptxGenJS 代码 — 直接输出 .pptx，不是文字内容 |
+| **场景化方案** | 学术/商业/培训/工作汇报 — 各有专门的配色字体版式 |
+| **组件库复用** | 预建 18 个模板 + 4 种布局 + 5 套主题 — 不用从头写 |
 
-## 目录结构
+---
 
-```
-ppt-master/
-├── SKILL.md                    # 技能定义（主入口）
-├── assets/                     # PptxGenJS 代码模板
-│   ├── compile*.js             # 编译脚本
-│   ├── slide-*.js             # 各类幻灯片模板
-│   └── chart-*.js             # 图表模板
-├── components/                 # 组件库
-│   ├── blocks/
-│   ├── layouts/
-│   └── theme/
-└── references/                # 参考文档
-    ├── README.md              # 文档索引
-    ├── design-principles.md   # 设计原则（CRAP）
-    ├── color-system.md        # 配色系统
-    ├── three-dimensions.md    # 三维体系
-    ├── typography-guide.md    # 字体指南
-    ├── universal-principles-of-design.md  # 通用设计法则
-    ├── thinking.md            # 认知偏差与设计
-    ├── cases/                 # 案例库
-    └── scenarios/            # 场景指南
-```
+## 设计理论支撑
 
-## 使用方法
-
-在 Trae IDE 中调用本技能，遵循 SKILL.md 定义的强制流程：
-
-1. **Step 1: 需求分析** — 确认受众、场景、页数、风格
-2. **Step 2: 场景判定** — 确定PPT类型
-3. **Step 3前: 设计决策** — Q1-Q9 + CRAP框架自问
-4. **Step 3: 设计执行** — 按场景读取references
-5. **Step 4前: 设计验证** — 单页+全局检查清单
-6. **Step 4: 代码生成** — PptxGenJS 实现
-
-## 理论支撑
-
-本技能基于以下 14 本经典设计文献深度学习提炼，吸收了各书的精髓：
-
-| # | 书名 | 作者 |
-|---|------|------|
-| 1 | 《PPT演示之道》 | 孙小小 |
-| 2 | 《PPT要你好看》 | 杨臻 |
-| 3 | 《写给大家看的PPT设计书》 | Robin Williams |
-| 4 | 《成为PPT高手》 | 马馺 |
-| 5 | 《改变思维：菜鸟也能做出震撼PPT》 | 创锐设计 |
-| 6 | 《PPT设计从入门到精通》 | 张晓景 |
-| 7 | 《PPT之光》 | 冯注龙 |
-| 8 | 《PPT设计原理》 | 罗欣 |
-| 9 | 《演说之禅》 | Garr Reynolds |
-| 10 | 《演说之禅设计篇》 | Garr Reynolds |
-| 11 | 《The Non-Designer's Design Book》 | Robin Williams |
-| 12 | 《Design Book for Non-Designers》 | Anita Nipane |
-| 13 | 《The Graphic Design Idea Book》 | Steven Heller, Gail Anderson |
-| 14 | 《Thinking with Type》 | Ellen Lupton |
-
-### 核心思想来源
+本技能不是"经验之谈"，而是有 14 本经典设计文献深度提炼支撑的：
 
 - **CRAP 四原则** — 源自 Robin Williams《写给大家看的设计书》
 - **配色系统** — 融合《演说之禅》与《Thinking with Type》色彩理论
@@ -87,11 +34,96 @@ ppt-master/
 - **设计灵感** — 提炼自《The Graphic Design Idea Book》50位大师策略
 - **三维体系** — 融合孙小小、杨臻等国内PPT专家实战经验
 
+详见 [理论支撑](理论支撑.md)
+
+---
+
+## 效果展示
+
+使用本技能生成的《LLM优化算法演进史》第一章课件（21页）：
+
+| 封面 | 目录 | 内容页 | 结尾页 |
+|:---:|:---:|:---:|:---:|
+| ![封面](效果展示/1.png) | ![目录](效果展示/2.png) | ![内容](效果展示/3.png) | ![结尾](效果展示/4.png) |
+
+---
+
+## 工作流程
+
+```
+Step 1: 需求分析 ─── 强制提问清单，搞清受众/场景/页数/风格
+    ↓
+Step 2: 场景判定 ─── 学术/商业/培训/工作汇报，确定等级和信息密度
+    ↓
+Step 3前: 设计决策 ─ Q1-Q9 + CRAP自问，确认配色/字体/版式
+    ↓
+Step 3: 设计执行 ─── 按场景读取 references（强制禁止规则）
+    ↓
+Step 4前: 设计验证 ─ 单页检查 + 全局一致性检查
+    ↓
+Step 4: 代码生成 ─── PptxGenJS，输出 .pptx
+```
+
+---
+
+## 目录结构
+
+```
+ppt-master/
+├── SKILL.md                    # 技能定义（主入口）
+├── assets/                     # PptxGenJS 代码模板
+│   ├── compile*.js             # 编译脚本（支持 --watch 监听模式）
+│   ├── slide-*.js             # 18 个预建幻灯片模板
+│   └── chart-*.js             # 图表模板
+├── components/                  # 组件库
+│   ├── layouts/                # 布局组件（threeColumn/comparison/timeline/cardGrid）
+│   ├── blocks/                 # 内容块（formulaBox/keywordTag/highlightBox/dataTable）
+│   └── theme/                  # 主题配色（academic/business/minimal/tech/warm）
+└── references/                 # 参考文档（22个）
+    ├── design-principles.md    # CRAP四原则
+    ├── color-system.md        # 配色系统（18套行业配色）
+    ├── typography-guide.md     # 字体选择指南
+    ├── master-inspiration.md   # 50位设计大师灵感
+    ├── three-dimensions.md     # 三维体系
+    ├── scenarios/             # 4种场景指南
+    ├── cases/                # 案例库（苹果/华为/TED/失败案例）
+    └── [其他]                # 质量检查/常见错误/图表设计等
+```
+
+---
+
+## 快速开始
+
+在 Trae IDE 中调用本技能，描述你的PPT需求即可。技能会自动引导你完成需求分析，然后生成代码。
+
+---
+
+## 适用场景
+
+| 场景 | 推荐等级 | 特点 |
+|------|----------|------|
+| 学术汇报 / 论文答辩 | 二等 | 信息密度高，逻辑严谨，配色稳重 |
+| 产品发布 / 路演 | 一等 | 极简、一页一信息、视觉冲击力 |
+| 培训课件 | 二等 | 结构清晰，重点突出，便于学员理解 |
+| 工作汇报 / 述职 | 二等 | 结论先行，数据支撑，专业高效 |
+| 商业计划 / BP | 一等~二等 | 说服力强，逻辑清晰，视觉专业 |
+
+---
+
+## 技术栈
+
+- **代码生成**: PptxGenJS
+- **技能格式**: Trae IDE Skill (.md)
+- **设计理论**: CRAP / 配色心理学 / 认知科学
+
+---
 
 ## 致谢
 
-- 原始技能：[MiniMax pptx-generator](https://github.com/MiniMax-AI/skills/tree/main/skills/pptx-generator)
-- 设计理论：《通用设计法则》《写给大家看的设计书》《About Face》等
+- 原始技能: [MiniMax pptx-generator](https://github.com/MiniMax-AI/skills/tree/main/skills/pptx-generator)
+- 设计理论: 《通用设计法则》《写给大家看的设计书》《Thinking with Type》《The Graphic Design Idea Book》等
+
+---
 
 ## License
 
