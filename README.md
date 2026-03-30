@@ -119,7 +119,7 @@ ppt-master/
 ## 技术栈
 
 - **代码生成**: PptxGenJS
-- **技能格式**: Trae IDE Skill (.md)
+- **技能格式**: Skill (.md)
 - **设计理论**: CRAP / 配色心理学 / 认知科学
 
 ---
