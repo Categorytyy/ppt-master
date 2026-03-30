@@ -82,7 +82,7 @@ ppt-master/
 
 ## 致谢
 
-- 原始技能：[MiniMax pptx-generator](https://github.com/your-org/pptx-generator)
+- 原始技能：[MiniMax pptx-generator](https://github.com/MiniMax-AI/skills/tree/main/skills/pptx-generator)
 - 设计理论：《通用设计法则》《写给大家看的设计书》《About Face》等
 
 ## License
