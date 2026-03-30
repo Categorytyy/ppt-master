@@ -25,16 +25,19 @@
 ---
 
 ## 设计理论支撑
+本技能不是"经验之谈"，而是深度学习了 14 本经典设计文献后提炼而成：
 
-本技能不是"经验之谈"，而是有 14 本经典设计文献深度提炼支撑的：
+| 本技能模块 | 来源文献 |
+|------------|----------|
+| CRAP 四原则 | Robin Williams《写给大家看的设计书》 |
+| 配色 7:2:1 法则 | Garr Reynolds《演说之禅》+ Ellen Lupton《Thinking with Type》 |
+| 字体决策矩阵 | Ellen Lupton《Thinking with Type》 |
+| 大师灵感策略 | 《The Graphic Design Idea Book》50位大师 |
+| 三维体系（难忘感/设计感/仪式感） | 孙小小《PPT演示之道》+ 杨臻《PPT要你好看》 |
+| Q1-Q9 决策框架 | 融合 Kano模型 + 设计思维方法论 |
+| 场景化信息密度 | 各场景指南综合提炼 |
 
-- **CRAP 四原则** — 源自 Robin Williams《写给大家看的设计书》
-- **配色系统** — 融合《演说之禅》与《Thinking with Type》色彩理论
-- **字体指南** — 深度借鉴《Thinking with Type》字体选择逻辑
-- **设计灵感** — 提炼自《The Graphic Design Idea Book》50位大师策略
-- **三维体系** — 融合孙小小、杨臻等国内PPT专家实战经验
-
-详见 [理论支撑](理论支撑.md)
+**14本参考文献**：《PPT演示之道》《PPT要你好看》《写给大家看的PPT设计书》《成为PPT高手》《改变思维》《PPT设计从入门到精通》《PPT之光》《PPT设计原理》《演说之禅》《演说之禅设计篇》《The Non-Designer's Design Book》《Design Book for Non-Designers》《The Graphic Design Idea Book》《Thinking with Type》
 
 ---
 
@@ -70,31 +73,34 @@ Step 4: 代码生成 ─── PptxGenJS，输出 .pptx
 
 ```
 ppt-master/
-├── SKILL.md                    # 技能定义（主入口）
-├── assets/                     # PptxGenJS 代码模板
-│   ├── compile*.js             # 编译脚本（支持 --watch 监听模式）
-│   ├── slide-*.js             # 18 个预建幻灯片模板
-│   └── chart-*.js             # 图表模板
-├── components/                  # 组件库
-│   ├── layouts/                # 布局组件（threeColumn/comparison/timeline/cardGrid）
-│   ├── blocks/                 # 内容块（formulaBox/keywordTag/highlightBox/dataTable）
-│   └── theme/                  # 主题配色（academic/business/minimal/tech/warm）
-└── references/                 # 参考文档（22个）
-    ├── design-principles.md    # CRAP四原则
-    ├── color-system.md        # 配色系统（18套行业配色）
-    ├── typography-guide.md     # 字体选择指南
-    ├── master-inspiration.md   # 50位设计大师灵感
-    ├── three-dimensions.md     # 三维体系
-    ├── scenarios/             # 4种场景指南
-    ├── cases/                # 案例库（苹果/华为/TED/失败案例）
-    └── [其他]                # 质量检查/常见错误/图表设计等
+├── ppt-master/                # 技能代码
+│   ├── SKILL.md              # 技能定义（主入口）
+│   ├── assets/               # PptxGenJS 代码模板
+│   │   ├── compile*.js       # 编译脚本（支持 --watch 监听模式）
+│   │   ├── slide-*.js        # 18 个预建幻灯片模板
+│   │   └── chart-*.js        # 图表模板
+│   ├── components/            # 组件库
+│   │   ├── layouts/          # 布局组件（threeColumn/comparison/timeline/cardGrid）
+│   │   ├── blocks/           # 内容块（formulaBox/keywordTag/highlightBox/dataTable）
+│   │   └── theme/            # 主题配色（academic/business/minimal/tech/warm）
+│   └── references/           # 参考文档（22个）
+│       ├── design-principles.md    # CRAP四原则
+│       ├── color-system.md        # 配色系统（18套行业配色）
+│       ├── typography-guide.md     # 字体选择指南
+│       ├── master-inspiration.md  # 50位设计大师灵感
+│       ├── three-dimensions.md     # 三维体系
+│       ├── scenarios/             # 4种场景指南
+│       ├── cases/                # 案例库（苹果/华为/TED/失败案例）
+│       └── [其他]                # 质量检查/常见错误/图表设计等
+├── 效果展示/                  # 效果截图
+└── README.md                  # 本文件
 ```
 
 ---
 
 ## 快速开始
 
-在 Trae IDE 中调用本技能，描述你的PPT需求即可。技能会自动引导你完成需求分析，然后生成代码。
+放到AI IDE 的 /.skill/ 文件夹下，例如trae，cuser，openclaw也可以使用， 就可以调用本技能，描述你的PPT需求即可。技能会自动引导你完成需求分析，然后生成代码。
 
 ---
 
