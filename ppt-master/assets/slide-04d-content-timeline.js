@@ -1,6 +1,13 @@
-// slide-04d-content-timeline.js - 内容-时间轴
+// slide-04d-content-timeline.js - 内容-时间轴 (符合安全边距规范)
 // PptxGenJS兼容性：✅ 时间轴布局 | ⚠️ 渐变用色块替代 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'content',
@@ -12,10 +19,10 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 页面标题
+  // 页面标题 - 使用安全边距
   const title = options.title || "发展历程";
   slide.addText(title, {
-    x: 0.5, y: 0.4, w: 9, h: 0.7,
+    x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.7,
     fontSize: 32,
     fontFace: "Microsoft YaHei",
     color: theme.primary,
@@ -24,7 +31,7 @@ function createSlide(pres, theme, options = {}) {
 
   // 标题下装饰线
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.5, y: 1.0, w: 1.2, h: 0.04,
+    x: MARGIN.left, y: 1.0, w: 1.2, h: 0.04,
     fill: { color: theme.accent }
   });
 
@@ -36,10 +43,10 @@ function createSlide(pres, theme, options = {}) {
     { year: "2024", title: "市场扩张", desc: "业务覆盖全国20省" }
   ];
 
-  // 时间轴参数
+  // 时间轴参数 - 在安全区域内
   const axisY = 3.0;
-  const startX = 1.0;
-  const endX = 9.0;
+  const startX = GRID.x[1];
+  const endX = GRID.x[10];
   const nodeSpacing = (endX - startX) / (events.length - 1);
 
   // 主时间轴线
@@ -103,14 +110,14 @@ function createSlide(pres, theme, options = {}) {
     });
   });
 
-  // Q4记忆点：关键里程碑
+  // Q4记忆点：关键里程碑 - 在安全区域内
   if (options.memorableEvent) {
     slide.addShape(pres.shapes.RECTANGLE, {
-      x: 0.5, y: 4.8, w: 9, h: 0.6,
+      x: MARGIN.left, y: 4.8, w: 9, h: 0.6,
       fill: { color: theme.accent, transparency: 15 }
     });
     slide.addText(options.memorableEvent, {
-      x: 0.5, y: 4.8, w: 9, h: 0.6,
+      x: MARGIN.left, y: 4.8, w: 9, h: 0.6,
       fontSize: 14,
       fontFace: "Microsoft YaHei",
       color: theme.accent,

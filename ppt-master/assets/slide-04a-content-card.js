@@ -1,6 +1,13 @@
-// slide-04a-content-card.js - 内容-三栏卡片
+// slide-04a-content-card.js - 内容-三栏卡片 (符合安全边距规范)
 // PptxGenJS兼容性：✅ 三栏卡片布局 | ⚠️ 渐变用色块替代 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'content',
@@ -12,10 +19,10 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 页面标题
+  // 页面标题 - 使用安全边距
   const title = options.title || "核心要点";
   slide.addText(title, {
-    x: 0.5, y: 0.4, w: 9, h: 0.7,
+    x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.7,
     fontSize: 32,
     fontFace: "Microsoft YaHei",
     color: theme.primary,
@@ -24,7 +31,7 @@ function createSlide(pres, theme, options = {}) {
 
   // 标题下装饰线
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.5, y: 1.0, w: 1.2, h: 0.04,
+    x: MARGIN.left, y: 1.0, w: 1.2, h: 0.04,
     fill: { color: theme.accent }
   });
 
@@ -35,11 +42,11 @@ function createSlide(pres, theme, options = {}) {
     { icon: "🚀", title: "快速执行", desc: "敏捷开发模式\n快速响应市场" }
   ];
 
-  // 三栏卡片布局
+  // 三栏卡片布局 - 在安全区域内计算
   const cardW = 2.8;
   const cardH = 3.2;
-  const startX = 0.6;
-  const startY = 1.4;
+  const startX = MARGIN.left;
+  const startY = GRID.y[1];
   const gap = 0.3;
 
   cards.forEach((card, i) => {
@@ -48,8 +55,7 @@ function createSlide(pres, theme, options = {}) {
     // 卡片背景
     slide.addShape(pres.shapes.RECTANGLE, {
       x: x, y: startY, w: cardW, h: cardH,
-      fill: { color: theme.light, transparency: 40 },
-      shadow: { type: "outer", blur: 4, offset: 2, angle: 45, color: "000000", opacity: 0.1 }
+      fill: { color: theme.light, transparency: 40 }
     });
 
     // 卡片顶部强调色块
@@ -86,10 +92,10 @@ function createSlide(pres, theme, options = {}) {
     });
   });
 
-  // Q4记忆点：数据支撑
+  // Q4记忆点：数据支撑 - 在安全区域内
   if (options.memorableData) {
     slide.addText(options.memorableData, {
-      x: 0.5, y: 4.9, w: 9, h: 0.4,
+      x: MARGIN.left, y: 4.9, w: 9, h: 0.4,
       fontSize: 14,
       fontFace: "Arial",
       color: theme.accent,

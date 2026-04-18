@@ -1,6 +1,13 @@
-// slide-04b-content-image-text.js - 内容-左图右文
+// slide-04b-content-image-text.js - 内容-左图右文 (符合安全边距规范)
 // PptxGenJS兼容性：✅ 图片+文字混排 | ⚠️ 图片需外部预处理 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'content',
@@ -12,10 +19,10 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 页面标题
+  // 页面标题 - 使用安全边距
   const title = options.title || "图文详情";
   slide.addText(title, {
-    x: 0.5, y: 0.4, w: 9, h: 0.7,
+    x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.7,
     fontSize: 32,
     fontFace: "Microsoft YaHei",
     color: theme.primary,
@@ -24,13 +31,13 @@ function createSlide(pres, theme, options = {}) {
 
   // 标题下装饰线
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.5, y: 1.0, w: 1.2, h: 0.04,
+    x: MARGIN.left, y: 1.0, w: 1.2, h: 0.04,
     fill: { color: theme.accent }
   });
 
-  // 左侧图片区域
-  const imageX = 0.5;
-  const imageY = 1.4;
+  // 左侧图片区域 - 使用安全边距
+  const imageX = MARGIN.left;
+  const imageY = GRID.y[1];
   const imageW = 4.2;
   const imageH = 3.6;
 
@@ -59,9 +66,9 @@ function createSlide(pres, theme, options = {}) {
     });
   }
 
-  // 右侧文字区域
-  const textX = 5.0;
-  const textY = 1.4;
+  // 右侧文字区域 - 从网格第6列开始
+  const textX = GRID.x[6];
+  const textY = GRID.y[1];
   const textW = 4.5;
 
   // 小标题
@@ -92,7 +99,7 @@ function createSlide(pres, theme, options = {}) {
     valign: "top"
   });
 
-  // Q4记忆点：关键数据
+  // Q4记忆点：关键数据 - 在安全区域内
   if (options.memorableData) {
     slide.addShape(pres.shapes.RECTANGLE, {
       x: textX, y: 4.3, w: textW, h: 0.7,

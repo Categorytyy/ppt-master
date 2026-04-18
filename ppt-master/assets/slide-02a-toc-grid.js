@@ -1,6 +1,13 @@
-// slide-02a-toc-grid.js - 目录-双栏网格
+// slide-02a-toc-grid.js - 目录-双栏网格 (符合安全边距规范)
 // PptxGenJS兼容性：✅ 双栏布局 | ⚠️ 渐变有限支持 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'toc',
@@ -12,9 +19,9 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 页面标题
+  // 页面标题 - 使用安全边距
   slide.addText("目录", {
-    x: 0.5, y: 0.4, w: 9, h: 0.7,
+    x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.7,
     fontSize: 32,
     fontFace: "Microsoft YaHei",
     color: theme.primary,
@@ -23,7 +30,7 @@ function createSlide(pres, theme, options = {}) {
 
   // 标题下装饰线
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.5, y: 1.0, w: 1.2, h: 0.04,
+    x: MARGIN.left, y: 1.0, w: 1.2, h: 0.04,
     fill: { color: theme.accent }
   });
 
@@ -35,8 +42,8 @@ function createSlide(pres, theme, options = {}) {
     { num: "04", title: "执行计划" }
   ];
 
-  // 双栏网格布局
-  const startY = 1.5;
+  // 双栏网格布局 - 在安全区域内
+  const startY = GRID.y[1];
   const cardW = 4.2;
   const cardH = 1.6;
   const gapX = 0.6;
@@ -45,7 +52,7 @@ function createSlide(pres, theme, options = {}) {
   chapters.forEach((ch, i) => {
     const col = i % 2;
     const row = Math.floor(i / 2);
-    const x = 0.5 + col * (cardW + gapX);
+    const x = MARGIN.left + col * (cardW + gapX);
     const y = startY + row * (cardH + gapY);
 
     // 卡片背景
@@ -82,9 +89,9 @@ function createSlide(pres, theme, options = {}) {
     });
   });
 
-  // Q4记忆点：章节数量
+  // Q4记忆点：章节数量 - 在安全区域内
   slide.addText(`共 ${chapters.length} 个章节`, {
-    x: 0.5, y: 5.1, w: 3, h: 0.3,
+    x: MARGIN.left, y: 5.0, w: 3, h: 0.3,
     fontSize: 11,
     fontFace: "Microsoft YaHei",
     color: theme.secondary

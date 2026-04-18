@@ -99,6 +99,8 @@ references/
 | [scenarios.md](scenarios.md) | 场景总览 |
 | [slide-types.md](slide-types.md) | 幻灯片类型指南 |
 | [speech-preparation.md](speech-preparation.md) | 演讲准备指南 |
+| **[svg-generation-guide.md](svg-generation-guide.md)** | **SVG 生成实战指南**（代码示例、技术规范） |
+| **[svg-graphics-guide.md](svg-graphics-guide.md)** | **52种 SVG 模板说明**（分类、场景、决策树） |
 | [techniques.md](techniques.md) | 技巧集合 |
 | [thinking.md](thinking.md) | 设计思维 |
 | [three-dimensions.md](three-dimensions.md) | PPT三维体系 |
@@ -118,13 +120,17 @@ references/
 | 逻辑不清晰 | guide/design-principles.md |
 | 容易被忽略的错误 | cases/10-failure-patterns.md |
 | 不知道这个场景该怎么设计 | scenarios/[对应场景].md |
+| 需要画复杂图形/图表 | svg-generation-guide.md |
+| 不知道选什么 SVG 模板 | svg-graphics-guide.md |
 
 ---
 
 ## 更新日志
 
 | 日期 | 更新内容 |
-|------|---------|
+|------|----------|
+| 2026-04-18 | **修复关键缺陷**：新增安全边距规范和网格系统（pptxgenjs.md），新增CRAP原则代码检查清单（SKILL.md 4.4节） |
+| 2026-04-18 | 新增 SVG 高级图形文档索引（svg-generation-guide.md、svg-graphics-guide.md） |
 | 2026-03-30 | 新增cases/目录，扁平化案例结构 |
 | 2026-03-30 | 新增统一索引入口README.md |
 | 2026-03-30 | 整理为cases/guide/scenarios三分类 |

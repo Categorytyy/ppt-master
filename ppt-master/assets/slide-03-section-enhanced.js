@@ -1,6 +1,13 @@
-// slide-03-section-enhanced.js - 章节过渡-增强
+// slide-03-section-enhanced.js - 章节过渡-增强 (符合安全边距规范)
 // PptxGenJS兼容性：✅ addSection | ✅ transition | ⚠️ 装饰元素用色块组合 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'section',
@@ -23,7 +30,7 @@ function createSlide(pres, theme, options = {}) {
 
   // 装饰元素组合 - 左侧大色块
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0, y: 0, w: 3.5, h: 5.625,
+    x: 0, y: 0, w: 3.5, h: 5.625,  // 全页背景允许贴边
     fill: { color: theme.secondary, transparency: 30 }
   });
 
@@ -33,15 +40,15 @@ function createSlide(pres, theme, options = {}) {
     fill: { color: theme.accent, transparency: 40 }
   });
 
-  // 装饰线条 - 横向
+  // 装饰线条 - 横向 - 使用安全边距
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.8, y: 2.6, w: 2, h: 0.03,
+    x: MARGIN.left, y: 2.6, w: 2, h: 0.03,
     fill: { color: theme.accent }
   });
 
   // 大号编号
   slide.addText(num, {
-    x: 0.5, y: 1.0, w: 3, h: 1.8,
+    x: MARGIN.left, y: 1.0, w: 3, h: 1.8,
     fontSize: 120,
     fontFace: "Arial",
     color: theme.secondary,
@@ -49,9 +56,9 @@ function createSlide(pres, theme, options = {}) {
     valign: "middle"
   });
 
-  // 章节标题
+  // 章节标题 - 在安全区域内
   slide.addText(sectionTitle, {
-    x: 0.8, y: 2.8, w: 8, h: 1.0,
+    x: MARGIN.left, y: 2.8, w: 8.5, h: 1.0,
     fontSize: 44,
     fontFace: "Microsoft YaHei",
     color: "FFFFFF",
@@ -61,7 +68,7 @@ function createSlide(pres, theme, options = {}) {
   // 副标题（可选）
   if (subtitle) {
     slide.addText(subtitle, {
-      x: 0.8, y: 3.8, w: 8, h: 0.6,
+      x: MARGIN.left, y: 3.8, w: 8.5, h: 0.6,
       fontSize: 18,
       fontFace: "Microsoft YaHei",
       color: theme.light

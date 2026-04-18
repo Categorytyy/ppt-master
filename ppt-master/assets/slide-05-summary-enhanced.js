@@ -1,6 +1,13 @@
-// slide-05-summary-enhanced.js - 总结-增强
+// slide-05-summary-enhanced.js - 总结-增强 (符合安全边距规范)
 // PptxGenJS兼容性：✅ addNotes | ⚠️ 渐变用色块替代 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'summary',
@@ -12,22 +19,22 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 页面标题
+  // 页面标题 - 使用安全边距
   slide.addText("总结", {
-    x: 0.5, y: 0.4, w: 9, h: 0.7,
+    x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.7,
     fontSize: 32,
     fontFace: "Microsoft YaHei",
     color: theme.primary,
     bold: true
   });
 
-  // 标题下装饰线
+  // 标题下装饰线 - 使用安全边距
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.5, y: 1.0, w: 1.2, h: 0.04,
+    x: MARGIN.left, y: 1.0, w: 1.2, h: 0.04,
     fill: { color: theme.accent }
   });
 
-  // 总结要点
+  // 总结要点 - 在安全区域内
   const summaryPoints = options.points || [
     { icon: "✅", text: "明确的目标：3年内实现市场份额翻倍" },
     { icon: "✅", text: "清晰的路径：产品+渠道+服务三轮驱动" },
@@ -35,17 +42,17 @@ function createSlide(pres, theme, options = {}) {
   ];
 
   summaryPoints.forEach((point, i) => {
-    const y = 1.4 + i * 0.9;
+    const y = GRID.y[1] + i * 0.9;
 
     // 图标背景
     slide.addShape(pres.shapes.RECTANGLE, {
-      x: 0.5, y: y, w: 0.6, h: 0.6,
+      x: MARGIN.left, y: y, w: 0.6, h: 0.6,
       fill: { color: theme.light }
     });
 
     // 图标
     slide.addText(point.icon, {
-      x: 0.5, y: y, w: 0.6, h: 0.6,
+      x: MARGIN.left, y: y, w: 0.6, h: 0.6,
       fontSize: 20,
       align: "center",
       valign: "middle"
@@ -53,7 +60,7 @@ function createSlide(pres, theme, options = {}) {
 
     // 文字
     slide.addText(point.text, {
-      x: 1.3, y: y, w: 8, h: 0.6,
+      x: GRID.x[1], y: y, w: 8, h: 0.6,
       fontSize: 16,
       fontFace: "Microsoft YaHei",
       color: theme.primary,
@@ -61,19 +68,19 @@ function createSlide(pres, theme, options = {}) {
     });
   });
 
-  // 核心数据展示区
+  // 核心数据展示区 - 在安全区域内
   const keyData = options.keyData || {
     value: "200%",
     label: "3年目标增长率"
   };
 
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.5, y: 4.0, w: 9, h: 1.2,
+    x: MARGIN.left, y: GRID.y[4], w: 9, h: 1.2,
     fill: { color: theme.primary, transparency: 8 }
   });
 
   slide.addText(keyData.value, {
-    x: 0.5, y: 4.0, w: 9, h: 0.8,
+    x: MARGIN.left, y: GRID.y[4], w: 9, h: 0.8,
     fontSize: 48,
     fontFace: "Arial",
     color: theme.accent,
@@ -83,7 +90,7 @@ function createSlide(pres, theme, options = {}) {
   });
 
   slide.addText(keyData.label, {
-    x: 0.5, y: 4.75, w: 9, h: 0.4,
+    x: MARGIN.left, y: GRID.y[4] + 0.75, w: 9, h: 0.4,
     fontSize: 14,
     fontFace: "Microsoft YaHei",
     color: theme.secondary,
@@ -99,7 +106,6 @@ function createSlide(pres, theme, options = {}) {
   return slide;
 }
 
-// 独立预览
 if (require.main === module) {
   const pres = new pptxgen();
   pres.layout = 'LAYOUT_16x9';
@@ -110,20 +116,8 @@ if (require.main === module) {
     light: "E8EAF6",
     bg: "FFFFFF"
   };
-  createSlide(pres, theme, {
-    title: "项目总结",
-    points: [
-      { icon: "🎯", text: "目标明确：2024年实现营收突破1亿元" },
-      { icon: "📈", text: "路径清晰：产品创新+市场拓展+客户深耕" },
-      { icon: "💪", text: "执行有力：团队能力升级+组织架构优化" }
-    ],
-    keyData: {
-      value: "+47%",
-      label: "预计年度增长率"
-    },
-    notes: "演讲提示：这里要停顿3秒，让观众消化核心数据。接下来进入Q&A环节。"
-  });
-  pres.writeFile({ fileName: "slide-05-preview.pptx" });
+  createSlide(pres, theme);
+  pres.writeFile({ fileName: "slide-05-enhanced-preview.pptx" });
 }
 
 module.exports = { createSlide, slideConfig };

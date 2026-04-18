@@ -1,6 +1,13 @@
-// chart-pie.js - 图表-饼图
+// chart-pie.js - 图表-饼图 (符合安全边距规范)
 // PptxGenJS兼容性：✅ addChart | ⚠️ 渐变图表不支持 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'chart',
@@ -21,10 +28,10 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 图表标题
+  // 图表标题 - 使用安全边距
   if (options.title) {
     slide.addText(options.title, {
-      x: 0.5, y: 0.3, w: 9, h: 0.6,
+      x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.6,
       fontSize: 28,
       fontFace: "Microsoft YaHei",
       color: theme.primary,
@@ -39,10 +46,10 @@ function createSlide(pres, theme, options = {}) {
     values: [35, 25, 22, 13, 5]
   }];
 
-  // 图表配置
+  // 图表配置 - 在安全区域内，饼图宽度减小以留出右侧空间
   const chartConfig = {
-    x: 0.5, y: options.title ? 1.0 : 0.5,
-    w: 5.5, h: 4.5,
+    x: MARGIN.left, y: options.title ? GRID.y[1] : MARGIN.top + 0.2,
+    w: 5.5, h: 3.8,
     showTitle: false,
     showLegend: true,
     legendPos: 'r',
@@ -61,12 +68,12 @@ function createSlide(pres, theme, options = {}) {
 
   slide.addChart(pres.charts.PIE, chartData, chartConfig);
 
-  // 右侧补充信息
-  const infoX = 6.3;
-  const infoY = 1.5;
+  // 右侧补充信息 - 在安全区域内
+  const infoX = GRID.x[8];
+  const infoY = GRID.y[1];
 
   slide.addText("占比分析", {
-    x: infoX, y: infoY, w: 3.2, h: 0.5,
+    x: infoX, y: infoY, w: 2.5, h: 0.5,
     fontSize: 16,
     fontFace: "Microsoft YaHei",
     color: theme.primary,
@@ -96,7 +103,7 @@ function createSlide(pres, theme, options = {}) {
     });
 
     slide.addText(item.label, {
-      x: infoX + 0.4, y: itemY, w: 1.5, h: 0.4,
+      x: infoX + 0.4, y: itemY, w: 1.2, h: 0.4,
       fontSize: 13,
       fontFace: "Microsoft YaHei",
       color: theme.secondary,
@@ -104,32 +111,15 @@ function createSlide(pres, theme, options = {}) {
     });
 
     slide.addText(item.value, {
-      x: infoX + 1.9, y: itemY, w: 1, h: 0.4,
+      x: infoX + 1.8, y: itemY, w: 0.8, h: 0.4,
       fontSize: 13,
       fontFace: "Arial",
       color: theme.primary,
       bold: true,
-      valign: "middle",
-      align: "right"
-    });
-  });
-
-  // Q4记忆点：核心洞察
-  if (options.insight) {
-    slide.addShape(pres.shapes.RECTANGLE, {
-      x: 0.5, y: 5.0, w: 9, h: 0.5,
-      fill: { color: theme.accent, transparency: 15 }
-    });
-    slide.addText(options.insight, {
-      x: 0.5, y: 5.0, w: 9, h: 0.5,
-      fontSize: 13,
-      fontFace: "Microsoft YaHei",
-      color: theme.accent,
-      bold: true,
-      align: "center",
+      align: "right",
       valign: "middle"
     });
-  }
+  });
 
   return slide;
 }
@@ -146,8 +136,7 @@ if (require.main === module) {
     bg: "FFFFFF"
   };
   createSlide(pres, theme, {
-    title: "产品市场份额分布",
-    insight: "💡 产品A+产品B占据60%份额，是核心利润来源"
+    title: "市场份额分布"
   });
   pres.writeFile({ fileName: "chart-pie-preview.pptx" });
 }

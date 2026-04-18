@@ -1,6 +1,13 @@
-// slide-04e-content-compare.js - 内容-对比式
+// slide-04e-content-compare.js - 内容-对比式 (符合安全边距规范)
 // PptxGenJS兼容性：✅ 对比布局 | ⚠️ 渐变用色块替代 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'content',
@@ -12,10 +19,10 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 页面标题
+  // 页面标题 - 使用安全边距
   const title = options.title || "方案对比";
   slide.addText(title, {
-    x: 0.5, y: 0.4, w: 9, h: 0.7,
+    x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.7,
     fontSize: 32,
     fontFace: "Microsoft YaHei",
     color: theme.primary,
@@ -24,22 +31,21 @@ function createSlide(pres, theme, options = {}) {
 
   // 标题下装饰线
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.5, y: 1.0, w: 1.2, h: 0.04,
+    x: MARGIN.left, y: 1.0, w: 1.2, h: 0.04,
     fill: { color: theme.accent }
   });
 
-  // 左侧方案
-  const leftX = 0.5;
+  // 左侧方案 - 使用安全边距
+  const leftX = MARGIN.left;
   const rightX = 5.15;
-  const cardY = 1.4;
+  const cardY = GRID.y[1];
   const cardW = 4.35;
   const cardH = 3.6;
 
   // 左侧卡片背景
   slide.addShape(pres.shapes.RECTANGLE, {
     x: leftX, y: cardY, w: cardW, h: cardH,
-    fill: { color: theme.light, transparency: 50 },
-    shadow: { type: "outer", blur: 4, offset: 2, angle: 45, color: "000000", opacity: 0.08 }
+    fill: { color: theme.light, transparency: 50 }
   });
 
   // 左侧顶部强调
@@ -82,13 +88,13 @@ function createSlide(pres, theme, options = {}) {
     });
   });
 
-  // VS 中间标记
+  // VS 中间标记 - 在安全区域内
   slide.addShape(pres.shapes.OVAL, {
-    x: 4.5, y: 2.8, w: 0.8, h: 0.8,
+    x: 4.6, y: 2.8, w: 0.8, h: 0.8,
     fill: { color: theme.accent }
   });
   slide.addText("VS", {
-    x: 4.5, y: 2.8, w: 0.8, h: 0.8,
+    x: 4.6, y: 2.8, w: 0.8, h: 0.8,
     fontSize: 16,
     fontFace: "Arial",
     color: "FFFFFF",
@@ -100,8 +106,7 @@ function createSlide(pres, theme, options = {}) {
   // 右侧卡片背景
   slide.addShape(pres.shapes.RECTANGLE, {
     x: rightX, y: cardY, w: cardW, h: cardH,
-    fill: { color: theme.primary, transparency: 10 },
-    shadow: { type: "outer", blur: 4, offset: 2, angle: 45, color: "000000", opacity: 0.08 }
+    fill: { color: theme.primary, transparency: 10 }
   });
 
   // 右侧顶部强调
@@ -144,14 +149,14 @@ function createSlide(pres, theme, options = {}) {
     });
   });
 
-  // Q4记忆点：推荐结论
+  // Q4记忆点：推荐结论 - 在安全区域内
   if (options.conclusion) {
     slide.addShape(pres.shapes.RECTANGLE, {
-      x: 0.5, y: 5.1, w: 9, h: 0.4,
+      x: MARGIN.left, y: 5.1, w: 9, h: 0.4,
       fill: { color: theme.accent, transparency: 15 }
     });
     slide.addText(options.conclusion, {
-      x: 0.5, y: 5.1, w: 9, h: 0.4,
+      x: MARGIN.left, y: 5.1, w: 9, h: 0.4,
       fontSize: 13,
       fontFace: "Microsoft YaHei",
       color: theme.accent,

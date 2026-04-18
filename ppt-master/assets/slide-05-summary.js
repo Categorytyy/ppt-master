@@ -1,5 +1,12 @@
-// slide-05.js - 总结页模板
+// slide-05.js - 总结页模板 (符合安全边距规范)
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'summary',
@@ -11,22 +18,22 @@ function createSlide(pres, theme) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 页面标题
+  // 页面标题 - 使用安全边距
   slide.addText("总结", {
-    x: 0.5, y: 0.4, w: 9, h: 0.7,
+    x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.7,
     fontSize: 36,
     fontFace: "Microsoft YaHei",
     color: theme.primary,
     bold: true
   });
 
-  // 标题下划线
+  // 标题下划线 - 使用安全边距
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.5, y: 1.0, w: 1.0, h: 0.06,
+    x: MARGIN.left, y: 1.0, w: 1.0, h: 0.06,
     fill: { color: theme.accent }
   });
 
-  // 总结要点卡片
+  // 总结要点卡片 - 在安全区域内
   const summaryItems = [
     { num: "1", text: "核心要点一" },
     { num: "2", text: "核心要点二" },
@@ -34,16 +41,16 @@ function createSlide(pres, theme) {
   ];
 
   summaryItems.forEach((item, index) => {
-    const yPos = 1.4 + index * 1.2;
+    const yPos = GRID.y[1] + index * 1.2;
 
     // 数字圆圈
     slide.addShape(pres.shapes.OVAL, {
-      x: 0.5, y: yPos, w: 0.5, h: 0.5,
+      x: MARGIN.left, y: yPos, w: 0.5, h: 0.5,
       fill: { color: theme.accent }
     });
 
     slide.addText(item.num, {
-      x: 0.5, y: yPos, w: 0.5, h: 0.5,
+      x: MARGIN.left, y: yPos, w: 0.5, h: 0.5,
       fontSize: 16,
       fontFace: "Arial",
       color: "FFFFFF",
@@ -54,7 +61,7 @@ function createSlide(pres, theme) {
 
     // 要点文字
     slide.addText(item.text, {
-      x: 1.2, y: yPos, w: 8, h: 0.5,
+      x: GRID.x[1], y: yPos, w: 8, h: 0.5,
       fontSize: 20,
       fontFace: "Microsoft YaHei",
       color: theme.secondary,
@@ -62,9 +69,9 @@ function createSlide(pres, theme) {
     });
   });
 
-  // 页码
+  // 页码 - 在安全区域内
   slide.addText("05", {
-    x: 9.3, y: 5.1, w: 0.5, h: 0.3,
+    x: 8.75, y: 5.0, w: 0.5, h: 0.3,
     fontSize: 10,
     fontFace: "Arial",
     color: theme.light,

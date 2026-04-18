@@ -1,6 +1,13 @@
-// chart-line.js - 图表-折线图
+// chart-line.js - 图表-折线图 (符合安全边距规范)
 // PptxGenJS兼容性：✅ addChart | ⚠️ 渐变图表不支持 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'chart',
@@ -21,10 +28,10 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 图表标题
+  // 图表标题 - 使用安全边距
   if (options.title) {
     slide.addText(options.title, {
-      x: 0.5, y: 0.3, w: 9, h: 0.6,
+      x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.6,
       fontSize: 28,
       fontFace: "Microsoft YaHei",
       color: theme.primary,
@@ -37,10 +44,10 @@ function createSlide(pres, theme, options = {}) {
     { name: "2024年", labels: ["1月", "2月", "3月", "4月", "5月", "6月"], values: [120, 145, 168, 172, 195, 220] }
   ];
 
-  // 图表配置
+  // 图表配置 - 在安全区域内
   const chartConfig = {
-    x: 0.5, y: options.title ? 1.0 : 0.5,
-    w: 9, h: 4.5,
+    x: MARGIN.left, y: options.title ? GRID.y[1] : MARGIN.top + 0.2,
+    w: 9, h: 3.8,
     lineSize: 2.5,
     lineSmooth: options.lineSmooth !== false,
     showTitle: false,
@@ -65,14 +72,14 @@ function createSlide(pres, theme, options = {}) {
 
   slide.addChart(pres.charts.LINE, chartData, chartConfig);
 
-  // Q4记忆点：趋势洞察
+  // Q4记忆点：趋势洞察 - 在安全区域内
   if (options.insight) {
     slide.addShape(pres.shapes.RECTANGLE, {
-      x: 0.5, y: 5.0, w: 9, h: 0.5,
+      x: MARGIN.left, y: GRID.y[4] + 0.1, w: 9, h: 0.5,
       fill: { color: theme.accent, transparency: 15 }
     });
     slide.addText(options.insight, {
-      x: 0.5, y: 5.0, w: 9, h: 0.5,
+      x: MARGIN.left, y: GRID.y[4] + 0.1, w: 9, h: 0.5,
       fontSize: 13,
       fontFace: "Microsoft YaHei",
       color: theme.accent,
@@ -98,10 +105,7 @@ if (require.main === module) {
   };
   createSlide(pres, theme, {
     title: "月度销售趋势（2024年上半年）",
-    data: [
-      { name: "月度销售额(万元)", labels: ["1月", "2月", "3月", "4月", "5月", "6月"], values: [120, 145, 168, 172, 195, 220] }
-    ],
-    insight: "📈 连续6个月增长，6月环比增长 12.8%"
+    insight: "上半年业绩稳步增长，6月达到峰值220万，环比增长12.8%"
   });
   pres.writeFile({ fileName: "chart-line-preview.pptx" });
 }

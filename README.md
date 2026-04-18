@@ -72,7 +72,30 @@ graph LR
 
 ---
 
-## 📂 目录结构
+## � 安全边距规范 (2025-04-18 更新)
+
+所有模板已统一采用 **安全边距规范**，确保元素不会超出页面边界：
+
+```javascript
+// 安全边距常量（16:9 布局）
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+
+// 12列网格系统
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
+```
+
+**安全区域约束**：
+- x ≥ 0.5 且 x + w ≤ 9.5
+- y ≥ 0.4 且 y + h ≤ 5.225
+
+> ✅ 所有 22 个模板文件已更新，符合 CRAP 设计原则和安全边距规范。
+
+---
+
+## �📂 目录结构
 
 ```
 ppt-master/
@@ -80,8 +103,8 @@ ppt-master/
 │   ├── SKILL.md              # 技能定义（主入口）
 │   ├── assets/               # PptxGenJS 代码模板
 │   │   ├── compile*.js       # 编译脚本（支持 --watch 监听模式）
-│   │   ├── slide-*.js        # 18 个预建幻灯片模板
-│   │   └── chart-*.js        # 图表模板
+│   │   ├── slide-*.js        # 22 个预建幻灯片模板（符合安全边距规范）
+│   │   └── chart-*.js        # 图表模板（符合安全边距规范）
 │   ├── components/            # 组件库
 │   │   ├── layouts/          # 布局组件（threeColumn/comparison/timeline/cardGrid）
 │   │   ├── blocks/           # 内容块（formulaBox/keywordTag/highlightBox/dataTable）

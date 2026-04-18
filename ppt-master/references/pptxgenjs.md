@@ -18,7 +18,9 @@ slide.background = { color: "FFFFFF" };
 pres.writeFile({ fileName: "output.pptx" });
 ```
 
-## 布局尺寸
+## 布局尺寸与安全区域
+
+### 页面尺寸
 
 | 布局 | 尺寸 | 说明 |
 |------|------|------|
@@ -26,6 +28,72 @@ pres.writeFile({ fileName: "output.pptx" });
 | LAYOUT_16x10 | 10" x 6.25" | 16:10 |
 | LAYOUT_4x3 | 10" x 7.5" | 4:3 |
 | LAYOUT_WIDE | 13.3" x 7.5" | 超宽 |
+
+### ⚠️ 安全边距规范（强制）
+
+**所有元素必须在安全区域内，禁止超出！**
+
+```javascript
+// 标准边距常量（16:9 布局）
+const MARGIN = {
+  left: 0.5,      // 左边距 0.5英寸
+  right: 0.5,     // 右边距 0.5英寸
+  top: 0.4,       // 上边距 0.4英寸
+  bottom: 0.4     // 下边距 0.4英寸
+};
+
+// 安全区域尺寸（必须在区域内放置元素）
+const SAFE_AREA = {
+  x: MARGIN.left,                    // 0.5"
+  y: MARGIN.top,                     // 0.4"
+  width: 10 - MARGIN.left - MARGIN.right,   // 9"
+  height: 5.625 - MARGIN.top - MARGIN.bottom // 4.825"
+};
+
+// 标题栏区域
+const HEADER = {
+  y: MARGIN.top,           // 0.4"
+  height: 0.8              // 标题栏高度
+};
+
+// 内容区域（标题下方）
+const CONTENT = {
+  y: MARGIN.top + 0.9,     // 1.3"
+  height: 5.625 - MARGIN.top - MARGIN.bottom - 0.9 // 3.925"
+};
+```
+
+### ❌ 常见错误（必须避免）
+
+| 错误写法 | 问题 | 正确写法 |
+|----------|------|----------|
+| `x: 0, w: "100%"` | 超出页面边界 | `x: 0.5, w: 9` |
+| `x: 0` | 紧贴边缘无留白 | `x: 0.5` |
+| `w: 9.5` | 宽度超出安全区 | `w: 9` |
+| `y: 0` | 标题贴顶 | `y: 0.4` |
+
+### 标准网格系统
+
+```javascript
+// 12列网格（每列 0.75"，间距 0.25"）
+const GRID = {
+  colWidth: 0.75,
+  gutter: 0.25,
+  cols: 12
+};
+
+// 快速定位函数
+function gridX(colIndex) {
+  return MARGIN.left + colIndex * (GRID.colWidth + GRID.gutter);
+}
+
+function gridW(span) {
+  return span * GRID.colWidth + (span - 1) * GRID.gutter;
+}
+
+// 使用示例：从第2列开始，占8列宽度
+// x: gridX(2), w: gridW(8)
+```
 
 ---
 

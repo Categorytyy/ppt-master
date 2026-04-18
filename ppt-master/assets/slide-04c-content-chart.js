@@ -1,6 +1,13 @@
-// slide-04c-content-chart.js - 内容-图表页
+// slide-04c-content-chart.js - 内容-图表页 (符合安全边距规范)
 // PptxGenJS兼容性：✅ 图表展示 | ⚠️ 渐变用色块替代 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'content',
@@ -12,10 +19,10 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
 
-  // 页面标题
+  // 页面标题 - 使用安全边距
   const title = options.title || "数据分析";
   slide.addText(title, {
-    x: 0.5, y: 0.4, w: 9, h: 0.7,
+    x: MARGIN.left, y: MARGIN.top, w: 9, h: 0.7,
     fontSize: 32,
     fontFace: "Microsoft YaHei",
     color: theme.primary,
@@ -24,7 +31,7 @@ function createSlide(pres, theme, options = {}) {
 
   // 标题下装饰线
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0.5, y: 1.0, w: 1.2, h: 0.04,
+    x: MARGIN.left, y: 1.0, w: 1.2, h: 0.04,
     fill: { color: theme.accent }
   });
 
@@ -37,9 +44,9 @@ function createSlide(pres, theme, options = {}) {
     { name: "Q2", labels: ["产品A", "产品B", "产品C"], values: [145, 92, 88] }
   ];
 
-  // 图表配置
+  // 图表配置 - 在安全区域内
   const chartConfig = {
-    x: 0.5, y: 1.3, w: 6, h: 3.8,
+    x: MARGIN.left, y: GRID.y[1], w: 6, h: 3.8,
     barDir: 'col',
     showTitle: false,
     showLegend: true,
@@ -68,7 +75,7 @@ function createSlide(pres, theme, options = {}) {
       labels: ["A类", "B类", "C类", "D类"],
       values: [35, 25, 22, 18]
     }], {
-      x: 0.5, y: 1.3, w: 5, h: 3.8,
+      x: MARGIN.left, y: GRID.y[1], w: 5, h: 3.8,
       showTitle: false,
       showLegend: true,
       legendPos: 'b',
@@ -76,9 +83,9 @@ function createSlide(pres, theme, options = {}) {
     });
   }
 
-  // 右侧关键洞察
-  const insightsX = 6.8;
-  const insightsY = 1.5;
+  // 右侧关键洞察 - 从网格第8列开始
+  const insightsX = GRID.x[8];
+  const insightsY = GRID.y[1];
 
   slide.addText("关键洞察", {
     x: insightsX, y: insightsY, w: 2.8, h: 0.5,
@@ -114,14 +121,14 @@ function createSlide(pres, theme, options = {}) {
     });
   });
 
-  // Q4记忆点：核心数据结论
+  // Q4记忆点：核心数据结论 - 在安全区域内
   if (options.memorableData) {
     slide.addShape(pres.shapes.RECTANGLE, {
-      x: 0.5, y: 5.0, w: 9, h: 0.5,
+      x: MARGIN.left, y: 5.0, w: 9, h: 0.5,
       fill: { color: theme.primary, transparency: 10 }
     });
     slide.addText(options.memorableData, {
-      x: 0.5, y: 5.0, w: 9, h: 0.5,
+      x: MARGIN.left, y: 5.0, w: 9, h: 0.5,
       fontSize: 14,
       fontFace: "Microsoft YaHei",
       color: theme.primary,

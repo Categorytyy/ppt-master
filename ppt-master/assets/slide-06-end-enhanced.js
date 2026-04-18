@@ -1,6 +1,13 @@
-// slide-06-end-enhanced.js - 结束-增强
+// slide-06-end-enhanced.js - 结束-增强 (符合安全边距规范)
 // PptxGenJS兼容性：✅ addHyperlink | ⚠️ 渐变用色块替代 | ❌ 动画不支持
 const pptxgen = require("pptxgenjs");
+
+// 安全边距与网格系统
+const MARGIN = { left: 0.5, right: 0.5, top: 0.4, bottom: 0.4 };
+const GRID = {
+  x: [0.5, 1.25, 2.0, 2.75, 3.5, 4.25, 5.0, 5.75, 6.5, 7.25, 8.0, 8.75],
+  y: [0.4, 1.3, 2.2, 3.1, 4.0, 4.9]
+};
 
 const slideConfig = {
   type: 'end',
@@ -12,22 +19,22 @@ function createSlide(pres, theme, options = {}) {
   const slide = pres.addSlide();
   slide.background = { color: theme.primary };
 
-  // 装饰元素 - 右上角大色块
+  // 装饰元素 - 右上角大色块（保持在安全区域内）
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 7, y: 0, w: 3, h: 2.5,
+    x: 7.0, y: MARGIN.top, w: 3.0, h: 2.0,
     fill: { color: theme.secondary, transparency: 40 }
   });
 
-  // 装饰元素 - 左下角色块
+  // 装饰元素 - 左下角色块（保持在安全区域内）
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 0, y: 4, w: 2.5, h: 1.625,
+    x: MARGIN.left, y: 4.0, w: 2.5, h: 1.225,
     fill: { color: theme.accent, transparency: 50 }
   });
 
-  // 主标题
+  // 主标题 - 在安全区域内居中
   const mainText = options.mainText || "感谢聆听";
   slide.addText(mainText, {
-    x: 0.5, y: 1.8, w: 9, h: 1.2,
+    x: MARGIN.left, y: 1.8, w: 9, h: 1.2,
     fontSize: 54,
     fontFace: "Microsoft YaHei",
     color: "FFFFFF",
@@ -35,28 +42,28 @@ function createSlide(pres, theme, options = {}) {
     align: "center"
   });
 
-  // 副标题
+  // 副标题 - 在安全区域内
   const subText = options.subText || "欢迎交流与合作";
   slide.addText(subText, {
-    x: 0.5, y: 3.0, w: 9, h: 0.6,
+    x: MARGIN.left, y: 3.0, w: 9, h: 0.6,
     fontSize: 20,
     fontFace: "Microsoft YaHei",
     color: theme.light,
     align: "center"
   });
 
-  // 装饰线
+  // 装饰线 - 居中
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: 4, y: 3.7, w: 2, h: 0.03,
+    x: 4.0, y: 3.7, w: 2.0, h: 0.03,
     fill: { color: theme.accent }
   });
 
-  // 联系信息区
-  const contactY = 4.2;
+  // 联系信息区 - 在安全区域内
+  const contactY = GRID.y[4];
 
   if (options.email) {
     slide.addText(options.email, {
-      x: 0.5, y: contactY, w: 9, h: 0.4,
+      x: MARGIN.left, y: contactY, w: 9, h: 0.4,
       fontSize: 14,
       fontFace: "Arial",
       color: theme.accent,
@@ -67,7 +74,7 @@ function createSlide(pres, theme, options = {}) {
 
   if (options.website) {
     slide.addText(options.website, {
-      x: 0.5, y: contactY + 0.5, w: 9, h: 0.4,
+      x: MARGIN.left, y: contactY + 0.5, w: 9, h: 0.4,
       fontSize: 14,
       fontFace: "Arial",
       color: theme.light,
@@ -76,16 +83,15 @@ function createSlide(pres, theme, options = {}) {
     });
   }
 
-  // Q4记忆点：金句
+  // Q4记忆点：金句 - 在安全区域底部
   if (options.memorableQuote) {
     slide.addText(options.memorableQuote, {
-      x: 0.5, y: 5.1, w: 9, h: 0.4,
+      x: MARGIN.left, y: 5.0, w: 9, h: 0.4,
       fontSize: 12,
       fontFace: "Microsoft YaHei",
       color: theme.light,
       italic: true,
-      align: "center",
-      transparency: 30
+      align: "center"
     });
   }
 
@@ -105,12 +111,12 @@ if (require.main === module) {
   };
   createSlide(pres, theme, {
     mainText: "感谢聆听",
-    subText: "期待与您深入交流",
+    subText: "欢迎交流与合作",
     email: "contact@example.com",
     website: "www.example.com",
-    memorableQuote: "「携手共创，合作共赢」"
+    memorableQuote: "创新引领未来，合作创造价值"
   });
-  pres.writeFile({ fileName: "slide-06-preview.pptx" });
+  pres.writeFile({ fileName: "slide-06-end-enhanced-preview.pptx" });
 }
 
 module.exports = { createSlide, slideConfig };
